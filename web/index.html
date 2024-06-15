@@ -62,11 +62,21 @@
                 </table>
                 </div>
             </div>
-            <div class="col-md-9">
-                <h2>График данных</h2>
+            <div class="col-md-8">
+                <div class="d-flex justify-content-center">
+                    <h2>График данных</h2>
+                </div>
                 <svg id="chart" width="800" height="300" style="max-height: 300px"></svg>
-                <h2>Max/Min График</h2>
+                <div class="d-flex justify-content-center">
+                    <h2>Max/Min График</h2>
+                </div>
                 <svg id="maxMinChart" width="800" height="300" style="max-height: 300px"></svg>
+                <div class="d-flex justify-content-center">
+                    <button onclick="saveChartAsPNG()" class="btn btn-primary">Сохранить как PNG</button>
+                </div>
+                <div id="chartContainer">
+                    <svg id="chart"></svg>
+                </div>
             </div>
         </div>
     </div>

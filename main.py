@@ -63,7 +63,7 @@ def update_chart():
             deactivate_actuator()
             eel.updatePlateStatus("Состояние плиты: неизвестно")
             stop_reading()
-            time.sleep(400)
+            time.sleep(0.4)
             eel.updatePlateStatus("Испытание завершено")
             break
 
@@ -74,18 +74,19 @@ def update_chart():
                 data_buffer.append(combined)
                 if len(data_buffer) >= 3:
                     avg_value = sum(data_buffer[-3:]) / 3
-                    avg_value = round(avg_value, ndigits=1)
-                    deviation_percent = round(((avg_value - base_value) / base_value) * 100, ndigits=1)
+                    avg_value = round(avg_value, 1)
+                    deviation_percent = round(((avg_value - base_value) / base_value) * 100, 1)
                     all_millisec = int((datetime.now() - start_time).total_seconds() * 1000)
-                    eel.updateChart(deviation_percent, all_millisec / 1000)
+                    timeChart = round(all_millisec / 1000, 3)
+                    eel.updateChart(deviation_percent, timeChart)
                     data_buffer.clear()
                     if avg_value > max_value:
                         max_value = avg_value
                     if avg_value < min_value:
                         min_value = avg_value
-                    if len(data_buffer1) >= 100:
-                        raznica = round((max_value - min_value) * 0.6, ndigits=1)
-                        eel.updateMaxMinChart(all_millisec / 1000, raznica, max_value, min_value)
+                    if len(data_buffer1) >= 300:
+                        raznica = round((max_value - min_value) * 0.6, 1)
+                        eel.updateMaxMinChart(timeChart, raznica, min_value, max_value)
                         max_value = float('-inf')
                         min_value = float('inf')
                         data_buffer1.clear()
